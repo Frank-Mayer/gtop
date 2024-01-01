@@ -65,6 +65,13 @@ func orderByMem(plist *[]*process.Process) {
 	})
 }
 
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 func plist() ([]table.Row, error) {
 	plist, err := process.Processes()
 	if err != nil {
@@ -79,7 +86,7 @@ func plist() ([]table.Row, error) {
 	}
 
 	// new process list for table ui
-	rows := make([]table.Row, len(plist))
+	rows := make([]table.Row, min(len(plist), *count))
 
 	// iterate over processes
 	for i, p := range plist {
